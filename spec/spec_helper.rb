@@ -86,6 +86,7 @@ def draw_routes
 
     get 'books/*section/:title' => 'books#show', :as => :book
     get 'books/:title/*section' => 'books#show', :as => :book_title
+    get '(/o/:optional_organization/)search/:q' => "search#show", as: :search
 
     mount BlogEngine::Engine => "/blog", :as => :blog_app
 

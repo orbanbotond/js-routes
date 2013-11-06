@@ -88,6 +88,11 @@ describe JsRoutes, "compatibility with Rails"  do
 
 
   context "routes globbing" do
+
+    it 'should handle the mandatory param well' do
+      expect(evaljs("Routes.search_path({q: 'search_term'})")).to eq( routes.search_path('search_term'))
+    end
+
     it "should be supported as parameters" do
       expect(evaljs("Routes.book_path('thrillers', 1)")).to eq(routes.book_path('thrillers', 1))
     end
@@ -173,8 +178,20 @@ describe JsRoutes, "compatibility with Rails"  do
     end
 
     context "and including them" do
-      it "should include the optional parts" do
+      it "should include the optional for the resources" do
         expect(evaljs("Routes.things_path({optional_id: 5})")).to eq(routes.things_path(:optional_id => 5))
+      end
+
+      it "should include the optional for the resources" do
+        expect(evaljs("Routes.thing_path({optional_id: 5, id:3})")).to eq(routes.thing_path(:optional_id => 5, :id => 3))
+      end
+
+      it "should include the optional" do
+        expect(evaljs("Routes.foo_path({optional_id: 1})")).to eq(routes.foo_path(:optional_id => 1))
+      end
+
+      it 'should handle the optional with other params as well' do
+        expect(evaljs("Routes.search_path({q: 'search_term', optional_organization: 'myorg'})")).to eq( routes.search_path('search_term', 'myorg'))
       end
     end
   end
