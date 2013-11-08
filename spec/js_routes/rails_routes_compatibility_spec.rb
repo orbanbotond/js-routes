@@ -195,7 +195,7 @@ describe JsRoutes, "compatibility with Rails"  do
       end
 
       it 'should handle the optional with other params as well' do
-        expect(evaljs("Routes.search_path({q: 'search_term', optional_organization: 'myorg'})")).to eq( routes.search_path('search_term', 'myorg'))
+        expect(evaljs("Routes.search_path({q: 'search_term', optional_organization: 'myorg'})")).to eq( routes.search_path(q: 'search_term', optional_organization: 'myorg'))
       end
     end
   end
